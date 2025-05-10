@@ -15,6 +15,18 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'services'))
 from filterSuara import butter_bandpass_filter
 from preprocessing import predict_audio_with_mfcc, predict_audio_with_chroma, predict_audio_with_both
 
+url_model_mfcc = "https://drive.google.com/uc?id=your_file_id"
+output_model_mfcc = "model/combined_model.h5"  # Path tempat menyimpan file model yang diunduh
+gdown.download(url_model_mfcc, output_model_mfcc, quiet=False)
+
+url_model_chroma = "https://drive.google.com/uc?id=your_file_id"
+output_model_chroma = "model/combined_model.h5"  # Path tempat menyimpan file model yang diunduh
+gdown.download(url_model_chroma, output_model_chroma, quiet=False)
+
+url_model_both = "https://drive.google.com/uc?id=your_file_id"
+output_model_both = "model/combined_model.h5"  # Path tempat menyimpan file model yang diunduh
+gdown.download(url_model_both, output_model_both, quiet=False)
+
 model_chroma = tf.keras.models.load_model('model/chroma_model.h5')
 model_mfcc = tf.keras.models.load_model('model/mfcc_model.h5')
 model_combined = tf.keras.models.load_model('model/combined_model.h5')
