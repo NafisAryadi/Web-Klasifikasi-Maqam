@@ -26,6 +26,8 @@ url_model_both = "https://drive.google.com/file/d/1QemH-BV736XEiow6AeHJQJm9XlsuL
 output_model_both = "model/combined_model.h5"  # Path tempat menyimpan file model yang diunduh
 gdown.download(url_model_both, output_model_both, quiet=False)
 
+time.sleep(180)  
+
 model_chroma = tf.keras.models.load_model('model/chroma_model.h5')
 model_mfcc = tf.keras.models.load_model('model/mfcc_model.h5')
 model_combined = tf.keras.models.load_model('model/combined_model.h5')
