@@ -28,6 +28,13 @@ gdown.download(url_model_both, output_model_both, quiet=False)
 
 time.sleep(180)  
 
+if not os.path.exists(output_model_chroma):
+    print("model chroma terunduh")
+    if not os.path.exists(output_model_mfcc):
+        print("model mfcc terunduh")
+        if not os.path.exists(output_model_both):
+            print("model kombinasi terunduh")
+
 model_chroma = tf.keras.models.load_model('model/chroma_model.h5')
 model_mfcc = tf.keras.models.load_model('model/mfcc_model.h5')
 model_combined = tf.keras.models.load_model('model/combined_model.h5')
