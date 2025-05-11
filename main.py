@@ -16,7 +16,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'services'))
 
 from preprocessing import predict_audio_with_mfcc, predict_audio_with_chroma, predict_audio_with_both
 
-def check_model_ready(filepath, min_size_mb=1.0, max_wait=180):
+def check_model_ready(filepath, min_size_mb=1.0, max_wait=300):
     waited = 0
     while True:
         if os.path.exists(filepath):
