@@ -26,14 +26,18 @@ url_model_both = "https://drive.google.com/file/d/1QemH-BV736XEiow6AeHJQJm9XlsuL
 output_model_both = "model/combined_model.h5"  # Path tempat menyimpan file model yang diunduh
 gdown.download(url_model_both, output_model_both, quiet=False)
 
-time.sleep(60)  
-
-if not os.path.exists(output_model_chroma):
-    print("model chroma terunduh")
-    if not os.path.exists(output_model_mfcc):
-        print("model mfcc terunduh")
-        if not os.path.exists(output_model_both):
-            print("model kombinasi terunduh")
+while not os.path.exists(output_model_chroma):
+    time.sleep(30) 
+    print("mengunduh model chroma")
+    #print("model chroma terunduh")
+    while not os.path.exists(output_model_mfcc):
+        time.sleep(30) 
+        print("mengunduh model mfcc")
+        #print("model mfcc terunduh")
+        while not os.path.exists(output_model_both):
+            time.sleep(30) 
+            print("mengunduh model kombinasi")
+            # print("model kombinasi terunduh")
 
 model_chroma = tf.keras.models.load_model('model/chroma_model.h5')
 model_mfcc = tf.keras.models.load_model('model/mfcc_model.h5')
