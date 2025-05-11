@@ -26,7 +26,7 @@ url_model_both = "https://drive.google.com/file/d/1QemH-BV736XEiow6AeHJQJm9XlsuL
 output_model_both = "model/combined_model.h5"  # Path tempat menyimpan file model yang diunduh
 gdown.download(url_model_both, output_model_both, quiet=False)
 
-time.sleep(180)  
+time.sleep(60)  
 
 if not os.path.exists(output_model_chroma):
     print("model chroma terunduh")
