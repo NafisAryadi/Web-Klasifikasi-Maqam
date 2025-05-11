@@ -16,34 +16,42 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'services'))
 
 from preprocessing import predict_audio_with_mfcc, predict_audio_with_chroma, predict_audio_with_both
 
+def check_model_ready(filepath, min_size_mb=1.0, max_wait=180):
+    waited = 0
+    while True:
+        if os.path.exists(filepath):
+            size_mb = os.path.getsize(filepath) / (1024 * 1024)
+            if size_mb > min_size_mb:
+                try:
+                    with h5py.File(filepath, 'r'):
+                        print(f"✅ Model {filepath} sudah valid dan siap dipakai.")
+                        break
+                except Exception as e:
+                    print(f"⏳ Menunggu file valid: {e}")
+        time.sleep(5)
+        waited += 5
+        if waited > max_wait:
+            raise TimeoutError(f"❌ Gagal validasi file model: {filepath}")
+
 url_model_mfcc = "https://drive.google.com/file/d/1-Nkzb4PA9PcHXdGnmiGCoL5PWcAudnms/view?usp=drive_link"
 output_model_mfcc = "model/mfcc_model.h5"  # Path tempat menyimpan file model yang diunduh
 gdown.download(url_model_mfcc, output_model_mfcc, quiet=False)
+check_model_ready(output_model_mfcc)
 
 url_model_chroma = "https://drive.google.com/file/d/1SdJH64DPPqHs4NcFENwckoFZNC7ipL-B/view?usp=drive_link"
 output_model_chroma = "model/chroma_model.h5"  # Path tempat menyimpan file model yang diunduh
 gdown.download(url_model_chroma, output_model_chroma, quiet=False)
+check_model_ready(output_model_chroma)
 
 url_model_both = "https://drive.google.com/file/d/1QemH-BV736XEiow6AeHJQJm9XlsuLCvk/view?usp=drive_link"
 output_model_both = "model/combined_model.h5"  # Path tempat menyimpan file model yang diunduh
 gdown.download(url_model_both, output_model_both, quiet=False)
+check_model_ready(output_model_both)
 
-while not h5py.File(output_model_chroma,'r'):
-    time.sleep(30) 
-    print("mengunduh model chroma")
-    #print("model chroma terunduh")
-while not h5py.File(output_model_mfcc,'r'):
-    time.sleep(30) 
-    print("mengunduh model mfcc")
-    #print("model mfcc terunduh")
-while not h5py.File(output_model_both,'r'):
-    time.sleep(30) 
-    print("mengunduh model kombinasi")
-    # print("model kombinasi terunduh")
 
-model_chroma = tf.keras.models.load_model('model/chroma_model.h5')
-model_mfcc = tf.keras.models.load_model('model/mfcc_model.h5')
-model_combined = tf.keras.models.load_model('model/combined_model.h5')
+model_mfcc = tf.keras.models.load_model(output_model_mfcc)
+model_chroma = tf.keras.models.load_model(output_model_chroma)
+model_combined = tf.keras.models.load_model(output_model_both)
 
 st.header(":blue[Klasifikasi] Maqam Bacaan :green[Al-'Quran]")
 
