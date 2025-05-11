@@ -30,14 +30,14 @@ while not os.path.exists(output_model_chroma):
     time.sleep(30) 
     print("mengunduh model chroma")
     #print("model chroma terunduh")
-    while not os.path.exists(output_model_mfcc):
-        time.sleep(30) 
-        print("mengunduh model mfcc")
-        #print("model mfcc terunduh")
-        while not os.path.exists(output_model_both):
-            time.sleep(30) 
-            print("mengunduh model kombinasi")
-            # print("model kombinasi terunduh")
+while not os.path.exists(output_model_mfcc):
+    time.sleep(30) 
+    print("mengunduh model mfcc")
+    #print("model mfcc terunduh")
+while not os.path.exists(output_model_both):
+    time.sleep(30) 
+    print("mengunduh model kombinasi")
+    # print("model kombinasi terunduh")
 
 model_chroma = tf.keras.models.load_model('model/chroma_model.h5')
 model_mfcc = tf.keras.models.load_model('model/mfcc_model.h5')
