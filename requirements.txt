@@ -7,3 +7,4 @@ pydub
 scikit-learn
 ffmpeg-python
 gdown
+h5py

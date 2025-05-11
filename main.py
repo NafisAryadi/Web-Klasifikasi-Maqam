@@ -4,6 +4,8 @@ import librosa as lib
 import soundfile as sf
 import tensorflow as tf
 from pydub import AudioSegment
+
+import h5py
 import os
 import sys
 import time
@@ -26,15 +28,15 @@ url_model_both = "https://drive.google.com/file/d/1QemH-BV736XEiow6AeHJQJm9XlsuL
 output_model_both = "model/combined_model.h5"  # Path tempat menyimpan file model yang diunduh
 gdown.download(url_model_both, output_model_both, quiet=False)
 
-while not os.path.exists(output_model_chroma):
+while not h5py.File(output_model_chroma,'r'):
     time.sleep(30) 
     print("mengunduh model chroma")
     #print("model chroma terunduh")
-while not os.path.exists(output_model_mfcc):
+while not h5py.File(output_model_mfcc,'r'):
     time.sleep(30) 
     print("mengunduh model mfcc")
     #print("model mfcc terunduh")
-while not os.path.exists(output_model_both):
+while not h5py.File(output_model_both,'r'):
     time.sleep(30) 
     print("mengunduh model kombinasi")
     # print("model kombinasi terunduh")
